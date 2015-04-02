@@ -114,7 +114,7 @@
                         </tr>
                         <tr >
                             <td colspan="5"><strong>Choose Warehouse:</stong>
-                                <form:form commandName="warehouseChosen" action="/checkout" method="post">
+                                <form:form commandName="warehouseChosen" action="/checkout" method="get">
                             <form:select path="warehouseId">
                                     <c:forEach items="${warehousesList}" var="warehouse">
                                     <form:option value="${warehouse.warehouseId}" label="${warehouse.location}"/>

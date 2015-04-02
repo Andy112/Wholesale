@@ -1,9 +1,11 @@
 package com.andy.controller;
 
 import com.andy.model.*;
+import com.andy.repo.OrderItemRepository;
 import com.andy.repo.OrderRepository;
 import com.andy.repo.ProductRepository;
 import com.andy.repo.WarehouseRepository;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -28,6 +30,9 @@ public class ShoppingController {
 
     @Autowired
     OrderRepository orderRepository;
+
+    @Autowired
+    OrderItemRepository orderItemRepository;
 
 
    /* @ModelAttribute("boxCart")
@@ -110,8 +115,8 @@ public class ShoppingController {
     }
 
 
-    @RequestMapping(value = "/checkout", method = RequestMethod.POST)
-    public String checkShopping(HttpSession session, @RequestParam("warehouseId")Long warehouseId){
+    @RequestMapping(value = "/checkout", method = RequestMethod.GET)
+    public ModelAndView checkShopping(HttpSession session, @RequestParam("warehouseId")Long warehouseId, ModelAndView model){
         List<Cart> cartList = (List<Cart>)session.getAttribute("boxCart");
 
         List<OrderItem> orderItems = new ArrayList<OrderItem>();
@@ -127,12 +132,12 @@ public class ShoppingController {
         }
         orderEntity.setOrderItems(orderItems);
 
+        orderItemRepository.save(orderItems);
         orderRepository.save(orderEntity);
 
 
-
-
         session.setAttribute("boxCart", new Cart());
-        return "successpage";
+        model.setViewName("successpage");
+        return model;
     }
 }
