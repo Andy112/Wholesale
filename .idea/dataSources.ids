@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - wholesaledeliverysystem@localhost" uuid="7b939563-3eaf-4465-b01a-ab77c8fcdcb5">
+    <database-info product="MySQL" version="5.6.21" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="wholesaledeliverysystem"/>
+    <table name="account" schema="" catalog="wholesaledeliverysystem" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="customer_customer_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="employee_employee_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="role_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="username" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FKB9D38A2D1E3FF55D" columns="customer_customer_id" ref-table="customer" ref-schema="" ref-catalog="wholesaledeliverysystem" ref-columns="customer_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="account_ibfk_1" columns="employee_employee_id" ref-table="employee" ref-schema="" ref-catalog="wholesaledeliverysystem" ref-columns="employee_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK24217FDEF2FCB6D6" table="customer" schema="" catalog="wholesaledeliverysystem" columns="account_id"/>
+      <exported-key name="FK4722E6AEF2FCB6D6" table="employee" schema="" catalog="wholesaledeliverysystem" columns="account_id"/>
+      <index name="FKB9D38A2D1E3FF55D" unique="false" columns="customer_customer_id"/>
+      <index name="FKB9D38A2D89EA722D" unique="false" columns="employee_employee_id"/>
+    </table>
+    <table name="customer" schema="" catalog="wholesaledeliverysystem" type="TABLE">
+      <column name="customer_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="firstName" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="lastName" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="address" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="telephone" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="gender" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12"/>
+      <column name="dob" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="account_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="customer_id"/>
+      <foreign-key name="FK24217FDEF2FCB6D6" columns="account_id" ref-table="account" ref-schema="" ref-catalog="wholesaledeliverysystem" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FKB9D38A2D1E3FF55D" table="account" schema="" catalog="wholesaledeliverysystem" columns="customer_customer_id"/>
+      <exported-key name="order_ibfk_1" table="order" schema="" catalog="wholesaledeliverysystem" columns="customer_id"/>
+      <index name="FK24217FDEF2FCB6D6" unique="false" columns="account_id"/>
+    </table>
+    <table name="employee" schema="" catalog="wholesaledeliverysystem" type="TABLE">
+      <column name="employee_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="firstName" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="lastName" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="location" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="account_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="employee_id"/>
+      <foreign-key name="FK4722E6AEF2FCB6D6" columns="account_id" ref-table="account" ref-schema="" ref-catalog="wholesaledeliverysystem" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="account_ibfk_1" table="account" schema="" catalog="wholesaledeliverysystem" columns="employee_employee_id"/>
+      <index name="FK4722E6AEF2FCB6D6" unique="false" columns="account_id"/>
+    </table>
+    <table name="inter_warehouse_transfer" schema="" catalog="wholesaledeliverysystem" type="TABLE">
+      <column name="transferId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="warehouseId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <foreign-key name="fk_TRANSFER_ORDER_has_WAREHOUSE_TRANSFER_ORDER1" columns="transferId" ref-table="transfer" ref-schema="" ref-catalog="wholesaledeliverysystem" ref-columns="transfer_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_TRANSFER_ORDER_has_WAREHOUSE_WAREHOUSE1" columns="warehouseId" ref-table="warehouse" ref-schema="" ref-catalog="wholesaledeliverysystem" ref-columns="warehouseId" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_TRANSFER_ORDER_has_WAREHOUSE_TRANSFER_ORDER1" unique="false" columns="transferId"/>
+      <index name="fk_TRANSFER_ORDER_has_WAREHOUSE_WAREHOUSE1" unique="false" columns="warehouseId"/>
+    </table>
+    <table name="order" schema="" catalog="wholesaledeliverysystem" type="TABLE">
+      <column name="orderId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="orderDate" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="orderStatus" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="orderItem" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="orderQuantity" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="customer_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="orderId"/>
+      <foreign-key name="order_ibfk_1" columns="customer_id" ref-table="customer" ref-schema="" ref-catalog="wholesaledeliverysystem" ref-columns="customer_id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="order_line" schema="" catalog="wholesaledeliverysystem" type="TABLE">
+      <column name="orderentity_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="itemId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="transferId" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="warehouse_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="itemId"/>
+      <index name="fk_ORDER_has_PRODUCT_ORDER1" unique="false" columns="orderentity_id"/>
+      <index name="fk_ORDER_has_PRODUCT_PRODUCT1" unique="false" columns="itemId"/>
+      <index name="fk_ORDER_LINE_TRANSFER1" unique="false" columns="transferId"/>
+    </table>
+    <table name="product" schema="" catalog="wholesaledeliverysystem" type="TABLE">
+      <column name="itemId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="itemDescription" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="itemWeight" sqlType="DECIMAL" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <column name="itemPrice" sqlType="DECIMAL" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <column name="itemStatus" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="totalStock" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="imageurl" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="itemName" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="itemId"/>
+      <index name="fk_PRODUCT_STOCK1" unique="false" columns="totalStock"/>
+    </table>
+    <table name="role" schema="" catalog="wholesaledeliverysystem" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="code" sqlType="VARCHAR" precision="22" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="stock" schema="" catalog="wholesaledeliverysystem" type="TABLE">
+      <column name="stockId" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="stockDescription" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="stockLevel" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="stockStatus" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="warehouseId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="stockId"/>
+      <foreign-key name="stock_ibfk_1" columns="warehouseId" ref-table="warehouse" ref-schema="" ref-catalog="wholesaledeliverysystem" ref-columns="warehouseId" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="transfer" schema="" catalog="wholesaledeliverysystem" type="TABLE">
+      <column name="transfer_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="transferDate" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="transferDeparture" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="transferDestination" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="milage" sqlType="DECIMAL" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <column name="transferId" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="transfer_id"/>
+      <exported-key name="fk_TRANSFER_ORDER_has_WAREHOUSE_TRANSFER_ORDER1" table="inter_warehouse_transfer" schema="" catalog="wholesaledeliverysystem" columns="transferId"/>
+    </table>
+    <table name="warehouse" schema="" catalog="wholesaledeliverysystem" type="TABLE">
+      <column name="warehouseId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="location" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="address" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="warehouseId"/>
+      <exported-key name="fk_TRANSFER_ORDER_has_WAREHOUSE_WAREHOUSE1" table="inter_warehouse_transfer" schema="" catalog="wholesaledeliverysystem" columns="warehouseId"/>
+      <exported-key name="stock_ibfk_1" table="stock" schema="" catalog="wholesaledeliverysystem" columns="warehouseId"/>
+    </table>
+  </data-source>
+</component>
